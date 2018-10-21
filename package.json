@@ -1,0 +1,57 @@
+{
+  "name": "can-crud",
+  "version": "0.0.0",
+  "description": "Scaffold functionality from models",
+  "homepage": "http://canjs.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/canjs/can-crud.git"
+  },
+  "author": {
+    "name": "Bitovi",
+    "email": "core@donejs.com",
+    "url": "http://donejs.com"
+  },
+  "scripts": {
+    "preversion": "npm test && npm run build",
+    "version": "git commit -am \"Update version number\" && git checkout -b release && git add -f dist/",
+    "postpublish": "git push --tags && git checkout master && git branch -D release && git push",
+    "testee": "testee test.html --browsers firefox",
+    "test": "npm run jshint && npm run testee",
+    "jshint": "jshint ./*.js --config",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "build": "node build.js",
+    "develop": "done-serve --static --develop --port 8080"
+  },
+  "main": "can-crud",
+  "keywords": [
+    "CanJS",
+    "DoneJS",
+    "donejs-plugin"
+  ],
+  "steal": {
+    "npmIgnore": [
+      "testee",
+      "generator-donejs",
+      "donejs-cli",
+      "steal-tools"
+    ]
+  },
+  "dependencies": {
+    "can-component": "^4.0.2",
+    "can-reflect": "^1.17.6"
+  },
+  "devDependencies": {
+    "can-define": "^2.7.0",
+    "can-fixture": "^3.0.0",
+    "can-realtime-rest-model": "^1.0.1",
+    "jshint": "^2.9.1",
+    "steal": "^2.1.5",
+    "steal-qunit": "^1.0.1",
+    "steal-tools": "^2.0.6",
+    "testee": "^0.7.0"
+  },
+  "license": "MIT"
+}
