@@ -7,14 +7,14 @@ module.exports = Component.extend({
 		<table>
 			<thead>
 				<tr>
-					{{# for(column of columns) }}
+					{{# for(column of this.columns) }}
 						<th>{{ this.prettyName( column ) }}</th>
 					{{/ for }}
 				</tr>
 			</thead>
 			<tbody>
 				{{# if(recordsPromise.isPending) }}
-					<tr><td>Pending</td></tr>
+					<tr><td colspan="{{this.columns.length}}">Pending</td></tr>
 				{{/ if }}
 				{{# if(recordsPromise.isResolved) }}
 					{{# for(record of recordsPromise.value) }}

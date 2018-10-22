@@ -40,10 +40,14 @@
     ]
   },
   "dependencies": {
-    "can-component": "^4.0.2",
-    "can-reflect": "^1.17.6"
+    "can-component": "file:../can-component",
+    "can-reflect": "^1.17.6",
+    "can-stache": "^4.15.0",
+    "can-stache-converters": "^4.2.4",
+    "can-value": "^1.0.1"
   },
   "devDependencies": {
+    "can-debug": "^2.0.1",
     "can-define": "^2.7.0",
     "can-fixture": "^3.0.0",
     "can-realtime-rest-model": "^1.0.1",
