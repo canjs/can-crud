@@ -1,12 +1,13 @@
 <my-demo></my-demo>
-<script src="../node_modules/steal/steal.js"></script>
+<script src="./node_modules/steal/steal.js"></script>
 <script type="steal-module">
 	import Component from "can-component";
 	import {Todo} from "~/examples/todos";
+	import "~/can-crud";
 
 	Component.extend({
 		tag: "my-demo",
-		view: `<can-create Type:from="this.Todo"/>`,
+		view: `<can-crud Type:from="this.Todo"/>`,
 		ViewModel: {
 			Todo: {
 				default(){

@@ -10,11 +10,14 @@ module.exports = Component.extend({
 					{{# for(column of this.columns) }}
 						<th>{{ this.prettyName( column ) }}</th>
 					{{/ for }}
+					{{# if( this.canEditOrDestroy ) }}
+						<th></th>
+					{{/ if }}
 				</tr>
 			</thead>
 			<tbody>
 				{{# if(recordsPromise.isPending) }}
-					<tr><td colspan="{{this.columns.length}}">Pending</td></tr>
+					<tr><td colspan="{{this.columns.length}}">Loading</td></tr>
 				{{/ if }}
 				{{# if(recordsPromise.isResolved) }}
 					{{# for(record of recordsPromise.value) }}
@@ -24,15 +27,26 @@ module.exports = Component.extend({
 							{{/ for }}
 							{{# if( this.canEditOrDestroy ) }}
 							<td>
-								<button on:click="this.edit(record)">
-									Edit
-								</button>
-								<button on:click="this.destroy(record)">
-									Destroy
-								</button>
+								{{# if( this.edit ) }}
+									<button on:click="this.edit(record)">
+										Edit
+									</button>
+								{{/ if }}
+								{{# if( this.destroy ) }}
+									<button on:click="this.destroy(record)"
+										disabled:from="record.isDestroying()">
+										{{# if( record.isDestroying() ) }}
+											destroying
+										{{ else }}
+											Delete
+										{{/ if }}
+									</button>
+								{{/ if }}
 							</td>
 							{{/ if }}
 						</tr>
+					{{ else }}
+						<tr><td colspan="{{this.columns.length}}">No records</td></tr>
 					{{/ for }}
 				{{/ if }}
 			</tbody>
@@ -51,7 +65,7 @@ module.exports = Component.extend({
 			return Object.keys(schema.keys);
 		},
 		get canEditOrDestroy(){
-			return this.edit && this.destroy;
+			return this.edit || this.destroy;
 		},
 		prettyName(str) {
 			return str.replace(/[a-z][A-Z]/g, function (str) {

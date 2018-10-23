@@ -27,7 +27,7 @@ module.exports = Component.extend({
 					</div>
 				</div>
 			{{/ for }}
-			<button>Submit</button>
+			<button disabled:from="instance.isSaving()">Submit</button>
 		</form>
 	`,
 	ViewModel: {
