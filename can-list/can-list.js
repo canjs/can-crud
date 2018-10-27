@@ -1,10 +1,21 @@
 var Component = require("can-component");
 var canReflect = require("can-reflect");
 
+function getPrettyValue(value, key, Type){
+	if( canReflect.isPrimitive(value) ) {
+		return value === null ? ""+value : value;
+	}
+	if(value instanceof Date) {
+		return value.toLocaleString();
+	}
+	return value;
+}
+
+
 module.exports = Component.extend({
 	tag: "can-list",
 	view: `
-		<table>
+		<table class="table">
 			<thead>
 				<tr>
 					{{# for(column of this.columns) }}
@@ -23,17 +34,19 @@ module.exports = Component.extend({
 					{{# for(record of recordsPromise.value) }}
 						<tr>
 							{{# for(column of columns) }}
-								<td>{{ record[column] }}</td>
+								<td>{{ this.prettyValue( record[column], column ) }}</td>
 							{{/ for }}
 							{{# if( this.canEditOrDestroy ) }}
 							<td>
 								{{# if( this.edit ) }}
-									<button on:click="this.edit(record)">
+									<button class="btn btn-secondary btn-sm"
+										on:click="this.edit(record)">
 										Edit
 									</button>
 								{{/ if }}
 								{{# if( this.destroy ) }}
-									<button on:click="this.destroy(record)"
+									<button class="btn btn-danger btn-sm"
+										on:click="this.destroy(record)"
 										disabled:from="record.isDestroying()">
 										{{# if( record.isDestroying() ) }}
 											destroying
@@ -67,11 +80,16 @@ module.exports = Component.extend({
 		get canEditOrDestroy(){
 			return this.edit || this.destroy;
 		},
-		prettyName(str) {
+		prettyName: function(str) {
 			return str.replace(/[a-z][A-Z]/g, function (str) {
 					return str.charAt(0) + ' ' + str.charAt(1)
 						.toLowerCase();
 			});
+		},
+		prettyValue: function(value, key){
+			var schema = canReflect.getSchema(this.Type);
+			var Type = schema.keys[key];
+			return getPrettyValue(value, key, Type);
 		}
 	}
 });

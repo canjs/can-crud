@@ -3,31 +3,23 @@ var canReflect = require("can-reflect");
 var editProperty = require("../edit-property/edit-property");
 var value = require("can-value");
 
-var style = document.createElement("style");
-style.innerHTML = `
-can-create .row {
-	margin: 1em 0em;
-}
-`;
-
-document.body.appendChild(style);
-
 
 module.exports = Component.extend({
 	tag: "can-create",
 	view: `
 		<form on:submit="this.createInstance(scope.event)">
 			{{# for(column of this.columns) }}
-				<div class='row'>
+				<div class='form-group'>
 					<label>
 						{{ this.prettyName( column ) }}
 					</label>
-					<div>
+					<div class='row'>
 						{{{ this.editorForColumn(column) }}}
 					</div>
 				</div>
 			{{/ for }}
-			<button disabled:from="instance.isSaving()">Submit</button>
+			<button disabled:from="instance.isSaving()"
+				class="btn btn-primary">Submit</button>
 		</form>
 	`,
 	ViewModel: {
@@ -61,7 +53,7 @@ module.exports = Component.extend({
 		editorForColumn(key){
 			var schema = canReflect.getSchema(this.Type);
 			return editProperty(key,
-				value.bind( this.instance, key ), schema.keys[key])
+				value.bind( this.instance, key ), schema.keys[key]);
 		},
 
 		createInstance(event) {

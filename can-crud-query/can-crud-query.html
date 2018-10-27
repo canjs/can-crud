@@ -1,5 +1,5 @@
 <head>
-	<link href="./ignore/bootstrap.min.css" rel="stylesheet">
+	<link href="../ignore/bootstrap.min.css" rel="stylesheet">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -7,15 +7,15 @@
 <div class="container">
 	<my-demo></my-demo>
 </div>
-<script src="./node_modules/steal/steal.js"></script>
+<script src="../node_modules/steal/steal.js"></script>
 <script type="steal-module">
 	import Component from "can-component";
 	import {Todo} from "~/examples/todos";
-	import "~/can-crud";
+	import "~/can-crud-query/can-crud-query";
 
 	Component.extend({
 		tag: "my-demo",
-		view: `<can-crud Type:from="this.Todo"/>`,
+		view: `<can-crud-query Type:from="this.Todo"/>`,
 		ViewModel: {
 			Todo: {
 				default(){

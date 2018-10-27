@@ -6,14 +6,16 @@ var value = require("can-value");
 
 require("can-debug")();
 
+
+
+
+
 var CrudOr = Component.extend({
 	tag: "can-crud-or",
 	view: `
-		<div class="row">
 		{{# for(option of this.options)}}
 			{{{ this.editorForType(option) }}}
 		{{/ for}}
-		</div>
 	`,
 	ViewModel: {
 		value: "any",
@@ -30,8 +32,7 @@ var CrudOr = Component.extend({
 Component.extend({
 	tag: "can-crud-string",
 	view: `
-		<input type="text" class="form-control"
-			value:from="this.inputValue" on:change="this.value = scope.element.value"/>
+		<input type="text" value:from="this.inputValue" on:change="this.value = scope.element.value"/>
 	`,
 	ViewModel: {
 		value: "any",
@@ -44,10 +45,7 @@ Component.extend({
 Component.extend({
 	tag: "can-crud-date",
 	view: `
-		<input type="date" class="form-control"
-			valueAsDate:from="this.inputValue"
-			on:change="this.value = scope.element.valueAsDate"
-			/>
+		<input type="date" valueAsDate:from="this.inputValue" on:change="this.value = scope.element.valueAsDate"/>
 	`,
 	ViewModel: {
 		value: "any",
@@ -58,10 +56,10 @@ Component.extend({
 });
 
 var editMap = new Map([
-	[Number, `<input type="number" valueAsNumber:bind="this.value" class="form-control" />`],
-	[Boolean, `<input type="radio" class="form-control"/> true <br/> <input type="radio" class="form-control"/> false`],
-	[Date, `<can-crud-date value:bind="this.value" class="col-auto"/>`],
-	[String, `<can-crud-string value:bind="this.value" class="col-auto"/>`]
+	[Number, `<input type="number" valueAsNumber:bind="this.value">`],
+	[Boolean, `<input type="radio"> true <br/> <input type="radio"> false`],
+	[Date, `<can-crud-date value:bind="this.value" />`],
+	[String, `<can-crud-string value:bind="this.value"/>`]
 ]);
 
 // TODO: this should work by type
@@ -71,22 +69,20 @@ function editProperty(name, value, Type){
 		var schema = canReflect.getSchema(Type);
 		if(schema) {
 			if(schema.type === "Or") {
-				var crudOr = new CrudOr({
+				return new CrudOr({
 					viewModel: {
 						schema: schema,
 						value: value,
 						name: name
 					}
 				});
-				crudOr.element.className = "col";
-				return crudOr;
 			}
 
 		}
 	}
 	if(canReflect.isPrimitive(Type)) {
-		return stache(`<div class='col-auto'><input type="radio" checked:bind="equal(this.value, this.Type)" class="form-check-label">
-			<code>{{this.typeName}}</code></div>`)({
+		return stache(`<input type="radio" checked:bind="equal(this.value, this.Type)">
+			<code>{{this.typeName}}</code>`)({
 				value: value,
 				Type: Type,
 				typeName: ("" === Type ? "(empty string)" : ""+Type)

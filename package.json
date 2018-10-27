@@ -43,7 +43,7 @@
     "can-component": "file:../can-component",
     "can-reflect": "^1.17.6",
     "can-stache": "^4.15.0",
-    "can-stache-converters": "^4.2.4",
+    "can-stache-converters": "^4.2.5",
     "can-value": "^1.0.1"
   },
   "devDependencies": {

@@ -1,0 +1,51 @@
+
+<body>
+	<div class="container-fluid">
+	  <h1>Todos</h1>
+	  <todo-list></todo-list>
+	</div>
+	<script type="module">
+import {Component} from "//unpkg.com/can@5/core.mjs";
+
+Component.extend({
+  tag: "todo-list",
+  view: `
+    <table class="table">
+      <tbody>
+        {{# if(todosPromise.isResolved) }}
+          {{# for(todo of todosPromise.value) }}
+            <tr>
+              <td>{{ todo.complete }}</td>
+              <td>{{ todo.name }}</td>
+              <td>{{ todo.dueDate }}</td>
+            </tr>
+          {{ else }}
+            <tr><td class='table-info'>No todos</td></tr>
+          {{/ for }}
+        {{/ if }}
+        {{# if(todosPromise.isPending) }}
+          <tr><td class='table-active'>Loading</td></tr>
+        {{/ if }}
+      </tbody>
+    </table>
+  `,
+  ViewModel: {
+    get todosPromise() {
+      // fetch("/api/todos")
+      return new Promise((resolve) => {
+        setTimeout(()=>{
+          resolve([
+            {id: 1, name: "fold laundry",
+             dueDate: new Date(2018,2,2).toString(), complete: false},
+            {id: 2, name: "clean carpet",
+             dueDate: new Date(2018,3,3).toString(), complete: true},
+            {id: 4, name: "dust fan",
+             dueDate: new Date(2018,4,4).getTime(), complete: false}
+          ]);
+        },2000);
+      });
+    }
+  }
+});
+</script>
+</body>

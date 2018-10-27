@@ -3,36 +3,30 @@ var canReflect = require("can-reflect");
 var editProperty = require("../edit-property/edit-property");
 var value = require("can-value");
 
-var style = document.createElement("style");
-style.innerHTML = `
-can-edit .row {
-	margin: 1em 0em;
-}
-`;
-
-document.body.appendChild(style);
-
 
 module.exports = Component.extend({
 	tag: "can-edit",
 	view: `
 		<form on:submit="this.updateRecord(scope.event)">
 			{{# for(column of this.columns) }}
-				<div class='row'>
+				<div class='form-group'>
 					<label>
 						{{ this.prettyName( column ) }}
 					</label>
-					<div>
+					<div class='row'>
 						{{{ this.editorForColumn(column) }}}
 					</div>
 				</div>
 			{{/ for }}
-			<button disabled:from="this.record.isSaving()">Save</button>
+			{{# if(this.showSave) }}
+				<button disabled:from="this.record.isSaving()">Save</button>
+			{{/ if }}
 		</form>
 	`,
 	ViewModel: {
 		record: "any",
 		savePromise: "any",
+		showSave: {default: true},
 		get columns(){
 			var schema = canReflect.getSchema(this.record.constructor);
 			// remove identity keys

@@ -27,7 +27,7 @@ var todosStore = fixture.store([
 	{id: 3, name: "mow lawn", dueDate: new Date(2018,5,1), complete: null},
 	{id: 4, name: "cook food", dueDate: null, complete: true}
 ], Todo);
-fixture.delay = 1200;
+fixture.delay = 500;
 
 fixture("/api/todos/{id}", todosStore);
 
