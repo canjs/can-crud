@@ -2,32 +2,36 @@
 
 [![Build Status](https://travis-ci.org/canjs/can-crud.svg?branch=master)](https://travis-ci.org/canjs/can-crud)
 
-Scaffold functionality from models
+Quickly create CRUD scaffolding for [CanJS](http://canjs.com)!
 
-## Usage
-
-### ES6 use
-
-With StealJS, you can import this module directly in a template that is autorendered:
+Create a model like:
 
 ```js
-import plugin from 'can-crud';
+import {DefineMap, DefineList, realtimeRestModel} from "can";
+
+var Todo = DefineMap.extend("Todo",{
+	id: {identity: true, type: "number"},
+	name: "string",
+	dueDate: "date",
+	complete: "boolean"
+});
+var TodoList = DefineList.extend("TodoList",{
+	"#": Todo
+});
+
+realtimeRestModel({
+	Map: Todo,
+	List: TodoList,
+	url: "/api/todos/{id}"
+});
 ```
 
-### CommonJS use
-
-Use `require` to load `can-crud` and everything else
-needed to create a template that uses `can-crud`:
-
-```js
-var plugin = require("can-crud");
-```
-
-### Standalone use
-
-Load the `global` version of the plugin:
+Pass that model to `<can-crud>` in your app:
 
 ```html
-<script src='./node_modules/can-crud/dist/global/can-crud.js'></script>
+<can-crud Type:from="this.Todo"/>
 ```
-# can-crud
+
+You'll see something like this:
+
+![crud example](example.png "Crud Example")
