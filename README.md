@@ -35,3 +35,5 @@ Pass that model to `<can-crud>` in your app:
 You'll see something like this:
 
 ![crud example](example.png "Crud Example")
+
+You can now view, edit, delete, and create records of your type!
