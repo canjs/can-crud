@@ -11,9 +11,9 @@ Component.extend({
 	tag: "can-crud",
 	view: `
 		<h1>{{this.Type.name}}s</h1>
-		<div class='bg-light'>
+		<!--<div class='bg-light'>
 			<can-crud-query Type:from="this.Type"/>
-		</div>
+		</div>-->
 		<can-list Type:from="this.Type"
 			destroy:from="destroyRecord"
 			edit:from="editRecord"/>
