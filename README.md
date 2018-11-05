@@ -28,8 +28,17 @@ realtimeRestModel({
 
 Pass that model to `<can-crud>` in your app:
 
-```html
-<can-crud Type:from="this.Todo"/>
+```js
+import {Component} from "can";
+import "can-crud";
+
+Component.extend({
+  tag: "my-app",
+  view: `<can-crud Type:from="this.Todo"/>`,
+  ViewModel: {
+    Todo: { deafult: ()=> Todo }
+  }
+})
 ```
 
 You'll see something like this:
@@ -44,3 +53,15 @@ You can now view, edit, delete, and create records of your type!
 > <meta charset="utf-8">
 > <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 > ```
+
+You can use the parts of this component on their own:
+
+### can-crud
+
+### can-create
+
+### can-edit 
+
+### can-list 
+
+### can-crud-modal
