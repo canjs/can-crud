@@ -37,3 +37,10 @@ You'll see something like this:
 ![crud example](example.png "Crud Example")
 
 You can now view, edit, delete, and create records of your type!
+
+> NOTE: Include boostrap to style the components. Add the following to `<head>`:
+> ```
+> <link href="./ignore/bootstrap.min.css" rel="stylesheet">
+> <meta charset="utf-8">
+> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+> ```
