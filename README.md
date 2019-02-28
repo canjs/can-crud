@@ -36,7 +36,7 @@ Component.extend({
   tag: "my-app",
   view: `<can-crud Type:from="this.Todo"/>`,
   ViewModel: {
-    Todo: { deafult: ()=> Todo }
+    Todo: { default: ()=> Todo }
   }
 })
 ```
