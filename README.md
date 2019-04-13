@@ -1,6 +1,6 @@
 # can-crud
 
-[![Build Status](https://travis-ci.org/canjs/can-crud.svg?branch=master)](https://travis-ci.org/canjs/can-crud)
+[![Build Status](https://travis-ci.org/canjs/can-crud.svg?branch=master)](https://travis-ci.org/canjs/can-crud) [![Greenkeeper badge](https://badges.greenkeeper.io/canjs/can-crud.svg)](https://greenkeeper.io/)
 
 Quickly create CRUD scaffolding for [CanJS](http://canjs.com)!
 
