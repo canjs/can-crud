@@ -1,5 +1,5 @@
-import DeepObservable from "can-deep-observable";
-var Component = require("can-component");
+
+var StacheElement = require("can-stache-element");
 var canReflect = require("can-reflect");
 
 function getPrettyValue(value, key, Type){
@@ -70,9 +70,9 @@ class CanList extends StacheElement {
 
 	static get props() {
 		return {
-			Type: type.Any,
-			edit: type.Any,
-			destroy: type.Any,
+			Type: Function,
+			edit: Function,
+			destroy: Function,
 
 			get recordsPromise(){
 				return this.Type.getList({})
@@ -101,12 +101,7 @@ class CanList extends StacheElement {
 		var Type = schema.keys[key];
 		return getPrettyValue(value, key, Type);
 	}
-
-	static get propertyDefaults() {
-		return DeepObservable;
-	}
 }
 
-customElements.define("can-list", CanList);
 
 module.exports = CanList;

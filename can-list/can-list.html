@@ -1,23 +1,26 @@
 <my-demo></my-demo>
 <script src="../node_modules/steal/steal.js"></script>
 <script type="steal-module">
-	import realtimeRestModel from "can-realtime-rest-model";
-	import "can-crud/can-list/can-list";
-	import DefineMap from "can-define/map/map";
-	import DefineList from "can-define/list/list";
-	import Component from "can-component";
-	import fixture from "can-fixture";
+	var realtimeRestModel = require("can-realtime-rest-model");
+	var CanList = require("can-crud/can-list/can-list");
+	var ObservableObject = require("can-observable-object");
+	var ObservableArray = require("can-observable-array");
+	var fixture = require("can-fixture");
+	var type = require("can-type");
 
+	customElements.define("can-list",CanList);
 
-	var Todo = DefineMap.extend("Todo",{
-		id: {identity: true, type: "number"},
-		name: "string",
-		dueDate: "date",
-		complete: "boolean"
-	});
-	var TodoList = DefineList.extend("TodoList",{
-		"#": Todo
-	})
+	class Todo extends ObservableObject {
+		static props = {
+			id: {identity: true, type: Number},
+			name: String,
+			dueDate: type.maybeConvert( Date ),
+			complete: type.maybe( Boolean )
+		};
+	}
+	class TodoList extends ObservableArray {
+		static items = Todo;
+	}
 
 	realtimeRestModel({
 		Map: Todo,
@@ -34,15 +37,9 @@
 
 	fixture("/api/todos/{id}", todosStore);
 
-	Component.extend({
-		tag: "my-demo",
-		view: `<can-list Type:from="this.Todo"/>`,
-		ViewModel: {
-			Todo: {
-				default(){
-					return Todo;
-				}
-			}
-		}
+	var listElement = new CanList().initialize({
+		Type: Todo
 	});
+
+	document.body.append(listElement);
 </script>

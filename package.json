@@ -40,16 +40,19 @@
     ]
   },
   "dependencies": {
-    "can-component": "file:../can-component",
     "can-reflect": "^1.17.6",
     "can-stache": "^4.15.0",
     "can-stache-converters": "^4.2.5",
+    "can-stache-element": "^1.0.0-pre.10",
+    "can-type": "^1.0.0-pre.4",
     "can-value": "^1.0.1"
   },
   "devDependencies": {
     "can-debug": "^2.0.1",
     "can-define": "^2.7.0",
     "can-fixture": "^3.0.0",
+    "can-observable-array": "^0.8.1",
+    "can-observable-object": "^0.2.0",
     "can-realtime-rest-model": "^1.0.1",
     "jshint": "^2.9.1",
     "steal": "^2.1.5",

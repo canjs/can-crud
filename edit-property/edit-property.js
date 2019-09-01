@@ -8,84 +8,84 @@ var value = require("can-value");
 require("can-debug")();
 
 class CrudOr extends StacheElement {
-    static get view() {
-        return `
-            <div class="row">
-            {{# for(option of this.options)}}
-                {{{ this.editorForType(option) }}}
-            {{/ for}}
-            </div>
-        `;
-    }
+	static get view() {
+		return `
+			<div class="row">
+			{{# for(option of this.options)}}
+				{{{ this.editorForType(option) }}}
+			{{/ for}}
+			</div>
+		`;
+	}
 
-    static get props() {
-        return {
-            value: type.Any,
-            schema: type.Any,
+	static get props() {
+		return {
+			value: type.Any,
+			schema: type.Any,
 
-            get options(){
-                return this.schema.values;
-            }
-        };
-    }
+			get options(){
+				return this.schema.values;
+			}
+		};
+	}
 
-    editorForType(type) {
-        return editProperty(this.name, value.bind(this,"value"), type)
-    }
+	editorForType(type) {
+		return editProperty(this.name, value.bind(this,"value"), type)
+	}
 
-    static get propertyDefaults() {
-        return DeepObservable;
-    }
+	static get propertyDefaults() {
+		return DeepObservable;
+	}
 }
 
 customElements.define("can-crud-or", CrudOr);
 
 class CanCrudString extends StacheElement {
-    static get view() {
-        return `
-            <input type="text" class="form-control"
-                value:from="this.inputValue" on:change="this.value = scope.element.value"/>
-        `;
-    }
+	static get view() {
+		return `
+			<input type="text" class="form-control"
+				value:from="this.inputValue" on:change="this.value = scope.element.value"/>
+		`;
+	}
 
-    static get props() {
-        return {
-            value: type.Any,
-            get inputValue(){
-                return this.value == null ? "" : ""+this.value;
-            }
-        };
-    }
+	static get props() {
+		return {
+			value: type.Any,
+			get inputValue(){
+				return this.value == null ? "" : ""+this.value;
+			}
+		};
+	}
 
-    static get propertyDefaults() {
-        return DeepObservable;
-    }
+	static get propertyDefaults() {
+		return DeepObservable;
+	}
 }
 
 customElements.define("can-crud-string", CanCrudString);
 
 class CanCrudDate extends StacheElement {
-    static get view() {
-        return `
-            <input type="date" class="form-control"
-                valueAsDate:from="this.inputValue"
-                on:change="this.value = scope.element.valueAsDate"
-                />
-        `;
-    }
+	static get view() {
+		return `
+			<input type="date" class="form-control"
+				valueAsDate:from="this.inputValue"
+				on:change="this.value = scope.element.valueAsDate"
+				/>
+		`;
+	}
 
-    static get props() {
-        return {
-            value: type.Any,
-            get inputValue(){
-                return this.value == null ? null : this.value;
-            }
-        };
-    }
+	static get props() {
+		return {
+			value: type.Any,
+			get inputValue(){
+				return this.value == null ? null : this.value;
+			}
+		};
+	}
 
-    static get propertyDefaults() {
-        return DeepObservable;
-    }
+	static get propertyDefaults() {
+		return DeepObservable;
+	}
 }
 
 customElements.define("can-crud-date", CanCrudDate);
