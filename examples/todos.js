@@ -7,28 +7,28 @@ import DeepObservable from "can-deep-observable";
 
 
 class Todo extends ObservableObject {
-    static get props() {
-        return {
-            id: {identity: true, type: type.maybeConvert(Number)},
-            name: type.maybeConvert(String),
-            dueDate: type.maybeConvert(Date),
-            complete: type.maybeConvert(Boolean)
-        };
-    }
+	static get props() {
+		return {
+			id: {identity: true, type: type.maybeConvert(Number)},
+			name: type.maybeConvert(String),
+			dueDate: type.maybeConvert(Date),
+			complete: type.maybeConvert(Boolean)
+		};
+	}
 
-    static get propertyDefaults() {
-        return DeepObservable;
-    }
+	static get propertyDefaults() {
+		return DeepObservable;
+	}
 }
 
 class TodoList extends ObservableArray {
-    static get props() {
-        return {};
-    }
+	static get props() {
+		return {};
+	}
 
-    static get items() {
-        return type.maybeConvert(Todo);
-    }
+	static get items() {
+		return type.maybeConvert(Todo);
+	}
 }
 
 realtimeRestModel({
@@ -43,6 +43,7 @@ var todosStore = fixture.store([
 	{id: 3, name: "mow lawn", dueDate: new Date(2018,5,1), complete: null},
 	{id: 4, name: "cook food", dueDate: null, complete: true}
 ], Todo);
+
 fixture.delay = 500;
 
 fixture("/api/todos/{id}", todosStore);
