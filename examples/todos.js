@@ -1,19 +1,35 @@
 import realtimeRestModel from "can-realtime-rest-model";
 import "can-crud/can-create/can-create";
-import DefineMap from "can-define/map/map";
-import DefineList from "can-define/list/list";
+import ObservableObject from "can-observable-object";
+import ObservableArray from "can-observable-array";
 import fixture from "can-fixture";
+import DeepObservable from "can-deep-observable";
 
 
-var Todo = DefineMap.extend("Todo",{
-	id: {identity: true, type: "number"},
-	name: "string",
-	dueDate: "date",
-	complete: "boolean"
-});
-var TodoList = DefineList.extend("TodoList",{
-	"#": Todo
-});
+class Todo extends ObservableObject {
+    static get props() {
+        return {
+            id: {identity: true, type: type.maybeConvert(Number)},
+            name: type.maybeConvert(String),
+            dueDate: type.maybeConvert(Date),
+            complete: type.maybeConvert(Boolean)
+        };
+    }
+
+    static get propertyDefaults() {
+        return DeepObservable;
+    }
+}
+
+class TodoList extends ObservableArray {
+    static get props() {
+        return {};
+    }
+
+    static get items() {
+        return type.maybeConvert(Todo);
+    }
+}
 
 realtimeRestModel({
 	Map: Todo,

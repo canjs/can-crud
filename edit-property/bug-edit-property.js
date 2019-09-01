@@ -1,3 +1,4 @@
+import DeepObservable from "can-deep-observable";
 var canReflect = require("can-reflect");
 var stache = require("can-stache");
 var Component = require("can-component");
@@ -10,50 +11,82 @@ require("can-debug")();
 
 
 
-var CrudOr = Component.extend({
-	tag: "can-crud-or",
-	view: `
-		{{# for(option of this.options)}}
-			{{{ this.editorForType(option) }}}
-		{{/ for}}
-	`,
-	ViewModel: {
-		value: "any",
-		schema: "any",
-		get options(){
-			return this.schema.values;
-		},
-		editorForType(type){
-			return editProperty(this.name, value.bind(this,"value"), type)
-		}
-	}
-});
+class CrudOr extends StacheElement {
+    static get view() {
+        return `
+            {{# for(option of this.options)}}
+                {{{ this.editorForType(option) }}}
+            {{/ for}}
+        `;
+    }
 
-Component.extend({
-	tag: "can-crud-string",
-	view: `
-		<input type="text" value:from="this.inputValue" on:change="this.value = scope.element.value"/>
-	`,
-	ViewModel: {
-		value: "any",
-		get inputValue(){
-			return this.value == null ? "" : ""+this.value;
-		}
-	}
-});
+    static get props() {
+        return {
+            value: type.Any,
+            schema: type.Any,
 
-Component.extend({
-	tag: "can-crud-date",
-	view: `
-		<input type="date" valueAsDate:from="this.inputValue" on:change="this.value = scope.element.valueAsDate"/>
-	`,
-	ViewModel: {
-		value: "any",
-		get inputValue(){
-			return this.value == null ? null : this.value;
-		}
-	}
-});
+            get options(){
+                return this.schema.values;
+            }
+        };
+    }
+
+    editorForType(type) {
+        return editProperty(this.name, value.bind(this,"value"), type)
+    }
+
+    static get propertyDefaults() {
+        return DeepObservable;
+    }
+}
+
+customElements.define("can-crud-or", CrudOr);
+
+class CanCrudString extends StacheElement {
+    static get view() {
+        return `
+            <input type="text" value:from="this.inputValue" on:change="this.value = scope.element.value"/>
+        `;
+    }
+
+    static get props() {
+        return {
+            value: type.Any,
+            get inputValue(){
+                return this.value == null ? "" : ""+this.value;
+            }
+        };
+    }
+
+    static get propertyDefaults() {
+        return DeepObservable;
+    }
+}
+
+customElements.define("can-crud-string", CanCrudString);
+
+class CanCrudDate extends StacheElement {
+    static get view() {
+        return `
+            <input type="date" valueAsDate:from="this.inputValue" on:change="this.value = scope.element.valueAsDate"/>
+        `;
+    }
+
+    static get props() {
+        return {
+            value: type.Any,
+            get inputValue(){
+                return this.value == null ? null : this.value;
+            }
+        };
+    }
+
+    static get propertyDefaults() {
+        return DeepObservable;
+    }
+}
+
+customElements.define("can-crud-date", CanCrudDate);
 
 var editMap = new Map([
 	[Number, `<input type="number" valueAsNumber:bind="this.value">`],

@@ -4,7 +4,7 @@ var editProperty = require("../edit-property/edit-property");
 var value = require("can-value");
 
 
-module.exports = Component.extend({
+var CanEdit = Component.extend({
 	tag: "can-edit",
 	view: `
 		<form on:submit="this.updateRecord(scope.event)">
@@ -57,3 +57,5 @@ module.exports = Component.extend({
 		}
 	}
 });
+
+module.exports = CanEdit;

@@ -3,7 +3,7 @@ var canReflect = require("can-reflect");
 
 
 
-module.exports = Component.extend({
+var CanCrudQueryFilter = Component.extend({
 	tag: "can-crud-query-filter",
 	view: `
 		<div class="dropdown">
@@ -47,3 +47,6 @@ module.exports = Component.extend({
 		}
 	}
 });
+
+
+module.exports = CanCrudQueryFilter;

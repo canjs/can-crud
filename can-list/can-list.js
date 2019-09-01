@@ -12,7 +12,7 @@ function getPrettyValue(value, key, Type){
 }
 
 
-module.exports = Component.extend({
+var CanList = Component.extend({
 	tag: "can-list",
 	view: `
 		<table class="table">
@@ -93,3 +93,5 @@ module.exports = Component.extend({
 		}
 	}
 });
+
+module.exports = CanList;

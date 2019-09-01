@@ -4,7 +4,7 @@ var editProperty = require("../edit-property/edit-property");
 var value = require("can-value");
 
 
-module.exports = Component.extend({
+var CanCreate = Component.extend({
 	tag: "can-create",
 	view: `
 		<form on:submit="this.createInstance(scope.event)">
@@ -65,3 +65,5 @@ module.exports = Component.extend({
 		}
 	}
 });
+
+module.exports = CanCreate;
