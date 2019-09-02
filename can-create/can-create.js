@@ -1,9 +1,8 @@
-import DeepObservable from "can-deep-observable";
-var Component = require("can-component");
+var StacheElement = require("can-stache-element");
 var canReflect = require("can-reflect");
 var editProperty = require("../edit-property/edit-property");
 var value = require("can-value");
-
+var type = require("can-type");
 
 class CanCreate extends StacheElement {
 	static get view() {
@@ -27,7 +26,7 @@ class CanCreate extends StacheElement {
 
 	static get props() {
 		return {
-			Type: type.Any,
+			Type: Function,
 			edit: type.Any,
 			destroy: type.Any,
 
@@ -75,12 +74,7 @@ class CanCreate extends StacheElement {
 			this.instance = new this.Type();
 		}.bind(this));
 	}
-
-	static get propertyDefaults() {
-		return DeepObservable;
-	}
 }
 
-customElements.define("can-create", CanCreate);
 
 module.exports = CanCreate;

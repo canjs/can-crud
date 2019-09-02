@@ -1,18 +1,14 @@
-<my-demo></my-demo>
+
 <script src="../node_modules/steal/steal.js"></script>
 <script type="steal-module">
-	import Component from "can-component";
-	import {Todo} from "~/examples/todos";
+	var CanCreate = require("~/can-create/can-create");
+	var {Todo} = require("~/examples/todos");
 
-	Component.extend({
-		tag: "my-demo",
-		view: `<can-create Type:from="this.Todo"/>`,
-		ViewModel: {
-			Todo: {
-				default(){
-					return Todo;
-				}
-			}
-		}
+	customElements.define("can-create", CanCreate);
+
+	var listElement = new CanCreate().initialize({
+		Type: Todo
 	});
+
+	document.body.append(listElement);
 </script>

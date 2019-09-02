@@ -1,9 +1,9 @@
-import DeepObservable from "can-deep-observable";
 var canReflect = require("can-reflect");
 var stache = require("can-stache");
-var Component = require("can-component");
+var StacheElement = require("can-stache-element");
 require("can-stache-converters");
 var value = require("can-value");
+var type = require("can-type");
 
 require("can-debug")();
 
@@ -32,10 +32,6 @@ class CrudOr extends StacheElement {
 	editorForType(type) {
 		return editProperty(this.name, value.bind(this,"value"), type)
 	}
-
-	static get propertyDefaults() {
-		return DeepObservable;
-	}
 }
 
 customElements.define("can-crud-or", CrudOr);
@@ -55,10 +51,6 @@ class CanCrudString extends StacheElement {
 				return this.value == null ? "" : ""+this.value;
 			}
 		};
-	}
-
-	static get propertyDefaults() {
-		return DeepObservable;
 	}
 }
 
@@ -82,10 +74,6 @@ class CanCrudDate extends StacheElement {
 			}
 		};
 	}
-
-	static get propertyDefaults() {
-		return DeepObservable;
-	}
 }
 
 customElements.define("can-crud-date", CanCrudDate);
@@ -104,14 +92,12 @@ function editProperty(name, value, Type){
 		var schema = canReflect.getSchema(Type);
 		if(schema) {
 			if(schema.type === "Or") {
-				var crudOr = new CrudOr({
-					viewModel: {
-						schema: schema,
-						value: value,
-						name: name
-					}
+				var crudOr = new CrudOr().initialize({
+					schema: schema,
+					value: value,
+					name: name
 				});
-				crudOr.element.className = "col";
+				crudOr.className = "col";
 				return crudOr;
 			}
 

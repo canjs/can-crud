@@ -1,34 +1,19 @@
-import realtimeRestModel from "can-realtime-rest-model";
-import "can-crud/can-create/can-create";
-import ObservableObject from "can-observable-object";
-import ObservableArray from "can-observable-array";
-import fixture from "can-fixture";
-import DeepObservable from "can-deep-observable";
-
+var realtimeRestModel = require("can-realtime-rest-model");
+var ObservableObject = require("can-observable-object");
+var ObservableArray = require("can-observable-array");
+var fixture = require("can-fixture");
+var type = require("can-type");
 
 class Todo extends ObservableObject {
-	static get props() {
-		return {
-			id: {identity: true, type: type.maybeConvert(Number)},
-			name: type.maybeConvert(String),
-			dueDate: type.maybeConvert(Date),
-			complete: type.maybeConvert(Boolean)
-		};
-	}
-
-	static get propertyDefaults() {
-		return DeepObservable;
-	}
+	static props = {
+		id: {identity: true, type: Number},
+		name: String,
+		dueDate: type.maybeConvert( Date ),
+		complete: type.maybe( Boolean )
+	};
 }
-
 class TodoList extends ObservableArray {
-	static get props() {
-		return {};
-	}
-
-	static get items() {
-		return type.maybeConvert(Todo);
-	}
+	static items = Todo;
 }
 
 realtimeRestModel({
@@ -44,8 +29,8 @@ var todosStore = fixture.store([
 	{id: 4, name: "cook food", dueDate: null, complete: true}
 ], Todo);
 
-fixture.delay = 500;
-
 fixture("/api/todos/{id}", todosStore);
 
-export {Todo, TodoList, todosStore};
+fixture.delay = 500;
+
+module.exports = {Todo, TodoList, todosStore};

@@ -41,8 +41,8 @@
   },
   "dependencies": {
     "can-reflect": "^1.17.6",
-    "can-stache": "^4.15.0",
-    "can-stache-converters": "^4.2.5",
+    "can-stache": "^5.0.0-pre.0",
+    "can-stache-converters": "^5.0.0-pre.1",
     "can-stache-element": "^1.0.0-pre.10",
     "can-type": "^1.0.0-pre.4",
     "can-value": "^1.0.1"
