@@ -1,14 +1,24 @@
-
+<h2>Create Form</h2>
 <script src="../node_modules/steal/steal.js"></script>
 <script type="steal-module">
 	var CanCreate = require("~/can-create/can-create");
 	var {Todo} = require("~/examples/todos");
+	var stache = require("can-stache");
 
 	customElements.define("can-create", CanCreate);
 
-	var listElement = new CanCreate().initialize({
+	var createElement = new CanCreate().initialize({
 		Type: Todo
 	});
 
-	document.body.append(listElement);
+	document.body.append(createElement);
+
+	var view = stache(`
+		<h2>Properties</h2>
+		{{# for(value of this.createElement.instance) }}
+		   <p>{{scope.key}}: {{value}}</p>
+		{{/ for }}
+	`);
+
+	document.body.append( view({createElement}) );
 </script>

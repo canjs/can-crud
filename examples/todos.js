@@ -8,7 +8,6 @@ class Todo extends ObservableObject {
 	static props = {
 		id: {identity: true, type: Number},
 		name: String,
-		dueDate: type.maybeConvert( Date ),
 		complete: type.maybe( Boolean )
 	};
 }

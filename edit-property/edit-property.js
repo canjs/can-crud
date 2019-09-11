@@ -92,7 +92,7 @@ function editProperty(name, value, Type){
 		var schema = canReflect.getSchema(Type);
 		if(schema) {
 			if(schema.type === "Or") {
-				var crudOr = new CrudOr().initialize({
+				var crudOr = new CrudOr().bindings({
 					schema: schema,
 					value: value,
 					name: name
@@ -112,7 +112,7 @@ function editProperty(name, value, Type){
 			});
 	} else {
 		var result = editMap.get(Type);
-
+		console.log("rendering", result, value)
 		if(typeof result === "string") {
 			return stache(result)({value: value});
 		}
